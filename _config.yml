@@ -8,7 +8,7 @@
 
 # Basic Site Settings
 locale                   : "en-UK"
-title                    : "FennMai / Site Title"
+title                    : "FennMai /Home Page"
 title_separator          : "-"
 name                     : &name "FennMai"
 description              : &description "I like coding and drinking milk tea :D"

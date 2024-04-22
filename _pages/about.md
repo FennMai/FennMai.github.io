@@ -1,8 +1,15 @@
-Welcome to my personal website
-======
+---
+permalink: /
+title: "Welcome to my personal website"
+author_profile: true
+redirect_from: 
+  - /about/
+  - /about.html
+---
+
 Hello ! My name is Fenn Mai. 
 
-Now status: student, Msc, 
+Now status: student, Msc
 
 My major:  Robotics And Artificial Intelligence
 
@@ -33,8 +40,6 @@ Suggested email format:
 > Topic: Github  xx[Project] Asking 
 >
 > Content: xxx
-
-
 
 
 
