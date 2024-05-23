@@ -6,12 +6,12 @@
 # `jekyll serve -l -H localhost`. If you change this file, please restart the 
 # server process.
 
-# Basic Site Settings
+# Basic Site Settings 站点的基本属性
 locale                   : "en-UK"
 title                    : "FennMai /Home Page"
 title_separator          : "-"
 name                     : &name "FennMai"
-description              : &description "I like coding and drinking milk tea :D"
+description              : &description "Losing weight without drinking milk tea"
 url                      : https://fennmai.github.io/ # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "academicpages/academicpages.github.io"
@@ -25,8 +25,8 @@ author:
   name             : "FennMai"
   pronouns         : # example: "she/her"  
   bio              : "Coding and drinking milk tea :D"
-  location         : "Earth"
-  employer         : "Glasgow University"
+  location         : #"Earth"
+  employer         : "University Of Glasgow"
   uri              : # URL
   email            : "fennmaicontact@gmail.com" 
 
