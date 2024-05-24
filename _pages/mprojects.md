@@ -1,11 +1,12 @@
 ---
-permalink: /
+layout: archive
+permalink: /mprojects/
 title: ""
 author_profile: true
 redirect_from: 
 ---
 
-#### 1.[Real Time Smart Shopping Cart](https://fennmai.github.io/Real_Time_Embedded_Team_Project/) 
+1.[Real Time Smart Shopping Cart](https://fennmai.github.io/Real_Time_Embedded_Team_Project/) 
 
 - (Continuing development)
 
@@ -20,10 +21,10 @@ redirect_from:
 - User-Friendly Interface: Displayed on a responsive QT screen, the Smart Shopping Cart not only shows map and sensor data but also accepts voice commands, enhancing usability. Experience the future of shopping with our cart, where technology meets practicality, making shopping enjoyable and efficient.
   用户友好的界面：智能购物车显示在响应式QT屏幕上，不仅显示地图和传感器数据，还接受语音命令，提高了可用性。使用我们的购物车体验购物的未来，技术与实用性相结合，使购物变得愉快和高效。
 
-#### 2.[Football Competition by NAO5 In Webots](https://github.com/FennMai/Robotics_TDP_Course_Team)
+2.[Football Competition by NAO5 In Webots](https://github.com/FennMai/Robotics_TDP_Course_Team)
 
 - (Continuing development)
 
-#### 3.[PathPlanning_Qt_Platform](https://github.com/FennMai/PathPlanning_Qt_Platform)
+3.[PathPlanning_Qt_Platform](https://github.com/FennMai/PathPlanning_Qt_Platform)
 
 - (Continuing development)
