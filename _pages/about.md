@@ -7,14 +7,11 @@ redirect_from:
   - /about.html
 ---
 
-
-Hello! My name is Fenn Mai, and I'm thrilled to welcome you to my website. 
+Hello! My name is Fenn Mai, and I'm thrilled to welcome you to my personal website. 
 
 I'm currently pursuing a Master of Science in Robotics and Artificial Intelligence at the University of Glasgow. 
 
-I am very interested in robotics and autonomous driving planning and control.
-
-I currently mainly study and code slam on the Linux system.
+I currently mainly study and code on  **Embodied AI  **.
 
 
 
