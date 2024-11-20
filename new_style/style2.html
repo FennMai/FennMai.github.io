@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fenn Mai - Personal Space</title>
+    <style>
+        /* ===== 全局样式重置与基础设置 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #1a1a1a;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== 容器布局 ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== 导航栏样式 ===== */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        /* Logo样式 */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a1a1a;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #444;
+        }
+
+        /* 导航链接 */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 16px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            border-color: #1a1a1a;
+            background: rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* ===== 主要内容区域 ===== */
+        .hero {
+            height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 50px;
+            gap: 40px;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        /* 标题动画效果 */
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+            animation: glitch 1s infinite;
+            animation-play-state: paused;
+        }
+
+        .hero h1:hover {
+            animation-play-state: running;
+        }
+
+        @keyframes glitch {
+            0% { transform: translateX(0) }
+            25% { transform: translateX(2px) skewX(2deg) }
+            75% { transform: translateX(-2px) skewX(-2deg) }
+            100% { transform: translateX(0) }
+        }
+
+        /* ===== 终端效果 ===== */
+        /* 动态终端 */
+        .terminal-effect-dynamic {
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 静态终端 */
+        .terminal-effect-static {
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 20px 0;
+            min-width: 800px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .terminal-effect-static p {
+            margin: 10px 0;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .terminal-effect-static p::before {
+            content: "> ";
+            color: #666;
+            font-weight: normal;
+        }
+
+        /* 打字机效果 */
+        .typing-effect {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 5px solid #1a1a1a;
+            animation: typing 3.5s steps(50, end);
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* ===== 社交链接 ===== */
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            color: #1a1a1a;
+            text-decoration: none;
+            padding: 12px 25px;
+            border: 1px solid #1a1a1a;
+            border-radius: 5px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #1a1a1a;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* ===== 复制提示框 ===== */
+        .copy-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            display: none;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .copy-notification.show {
+            display: block;
+            opacity: 1;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { bottom: -50px; opacity: 0; }
+            to { bottom: 20px; opacity: 1; }
+        }
+
+        /* ===== 机器人图片 ===== */
+        .robot-image {
+            flex: 1;
+            max-width: 500px;
+            height: 600px;
+            position: relative;
+            background: url('/api/placeholder/500/600') center/cover no-repeat;
+            border-radius: 10px;
+            opacity: 0.9;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* ===== 响应式设计 ===== */
+        @media (max-width: 1024px) {
+            .terminal-effect-static {
+                min-width: 600px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                padding: 20px;
+                height: auto;
+                text-align: center;
+            }
+
+            .terminal-effect-static {
+                min-width: auto;
+                width: 100%;
+                padding: 15px;
+            }
+
+            .robot-image {
+                width: 100%;
+                height: 360px;
+                margin-top: 30px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                padding: 6px 12px;
+                font-size: 14px;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Matrix动画背景 -->
+    <canvas class="matrix-rain" id="matrixRain"></canvas>
+
+    <div class="container">
+        <!-- 导航栏 -->
+        <nav>
+            <a href="/" class="logo">Personal Space</a>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/blog">Blog</a>
+                <a href="/projects">Projects</a>
+            </div>
+        </nav>
+
+        <!-- 主要内容区域 -->
+        <div class="hero">
+            <div class="hero-content">
+                <h1>HOME.INIT()</h1>
+                
+                <!-- 欢迎信息 -->
+                <div class="terminal-effect-dynamic typing-effect">
+                    <h2>fennmai@dev: Welcome to my home :)</h2>
+                </div>
+
+                <!-- 个人信息 -->
+                <div class="terminal-effect-static">
+                    <p>Role: Embodied AI Engineer</p>
+                    <p>Focus: Robotics, AI, Embedded System</p>
+                    <p>Tech: Python, C++, ROS, CoppeliaSim, Isaac Lab</p>
+                    <p>Location: Shenzhen/China & Glasgow/Scotland</p>
+                </div>
+
+                <!-- 社交媒体链接 -->
+                <div class="social-links">
+                    <a href="https://github.com/FennMai" target="_blank">GitHub</a>
+                    <a href="https://linkedin.com/in/yourusername" target="_blank">LinkedIn</a>
+                    <a href="#" class="gmail-link" data-email="fennmaicontact@gmail.com">Gmail</a>
+                </div>
+            </div>
+
+            <!-- 机器人图片 -->
+            <div class="robot-image"></div>
+        </div>
+    </div>
+
+    <!-- 复制提示框 -->
+    <div id="copy-notification" class="copy-notification">Copied Gmail to clipboard!</div>
+
+    <script>
+        // ===== Matrix动画效果 =====
+        const canvas = document.getElementById('matrixRain');
+        const ctx = canvas.getContext('2d');
+
+        // 设置canvas尺寸
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+
+        // Matrix动画配置
+        const chars = '0123456789ABCDEF';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = new Array(Math.floor(columns)).fill(1);
+
+        // 绘制Matrix动画
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#1a1a1a';
+            ctx.font = `${fontSize}px monospace`;
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.99) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // 启动动画
+        setInterval(drawMatrix, 100);
+
+        // 窗口调整时重置canvas
+        window.addEventListener('resize', resizeCanvas);
+
+        // ===== Gmail复制功能 =====
+        document.querySelector('.gmail-link').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const email = this.getAttribute('data-email');
+            
+            navigator.clipboard.writeText(email).then(() => {
+                const notification = document.getElementById('copy-notification');
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+            });
+        });
+    </script>
+</body>
+
+</html>
