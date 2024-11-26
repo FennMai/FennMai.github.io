@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <!-- 添加 marked.js 用于解析 Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- 其他 head 内容保持不变 -->
+</head>
+
+<body>
+    <!-- 其他内容保持不变 -->
+    <div class="hero-content">
+        <h1>HOME.INIT()</h1>
+
+        <!-- 欢迎信息 - 将从 Markdown 加载 -->
+        <div class="terminal-effect-dynamic typing-effect" id="welcome-message">
+        </div>
+
+        <!-- 个人信息 - 将从 Markdown 加载 -->
+        <div class="terminal-effect-static" id="personal-info">
+        </div>
+
+        <!-- 社交媒体链接 - 将从 Markdown 加载 -->
+        <div class="social-links" id="social-links">
+        </div>
+    </div>
+
+    <script>
+        // 加载 Markdown 内容
+        async function loadContent() {
+            try {
+                const response = await fetch('content.md');
+                const markdown = await response.text();
+
+                // 解析 Markdown 内容
+                const content = parseMarkdown(markdown);
+
+                // 更新页面内容
+                updatePageContent(content);
+            } catch (error) {
+                console.error('Error loading content:', error);
+            }
+        }
+
+        // 解析 Markdown 内容
+        function parseMarkdown(markdown) {
+            const sections = {};
+            const lines = markdown.split('\n');
+            let currentSection = '';
+
+            lines.forEach(line => {
+                if (line.startsWith('# ')) {
+                    currentSection = line.slice(2).trim();
+                    sections[currentSection] = [];
+                } else if (line.trim() && currentSection) {
+                    sections[currentSection].push(line.trim());
+                }
+            });
+
+            return sections;
+        }
+
+        // 更新页面内容
+        function updatePageContent(content) {
+            // 更新欢迎语
+            if (content['欢迎语']) {
+                document.getElementById('welcome-message').innerHTML =
+                    `<h2>${content['欢迎语'][0]}</h2>`;
+            }
+
+            // 更新个人信息
+            if (content['个人信息']) {
+                const personalInfo = content['个人信息']
+                    .filter(line => line.startsWith('>'))
+                    .map(line => `<p>${line.slice(2).trim()}</p>`)
+                    .join('');
+                document.getElementById('personal-info').innerHTML = personalInfo;
+            }
+
+            // 更新社交链接
+            if (content['社交链接']) {
+                const socialLinks = content['社交链接']
+                    .filter(line => line.startsWith('-'))
+                    .map(line => {
+                        const [name, url] = line.slice(2).split(': ');
+                        if (name.trim() === 'Email') {
+                            return `<a href="#" class="gmail-link" data-email="${url.trim()}">${name.trim()}</a>`;
+                        }
+                        return `<a href="${url.trim()}" target="_blank">${name.trim()}</a>`;
+                    })
+                    .join('');
+                document.getElementById('social-links').innerHTML = socialLinks;
+            }
+
+            // 重新绑定 Gmail 复制功能
+            bindGmailCopyFunction();
+        }
+
+        // 绑定 Gmail 复制功能
+        function bindGmailCopyFunction() {
+            document.querySelector('.gmail-link')?.addEventListener('click', function (e) {
+                e.preventDefault();
+                const email = this.getAttribute('data-email');
+
+                navigator.clipboard.writeText(email).then(() => {
+                    const notification = document.getElementById('copy-notification');
+                    notification.classList.add('show');
+
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Failed to copy:', err);
+                });
+            });
+        }
+
+        // 加载内容
+        loadContent();
+    </script>
+</body>
+
+</html>
